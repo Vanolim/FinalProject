@@ -20,7 +20,7 @@ public class BallGenerator : ObjectPool
         StartCoroutine(SpawnObjects());
     }
 
-    public void Reset()
+    public void ResetActiveBalls()
     {
         List<Ball> activeGameObjects = ReturnActiveObjectsPool();
 
@@ -50,6 +50,7 @@ public class BallGenerator : ObjectPool
             {
                 ball.transform.position = new Vector2(SetThePositionX(), _startingPointOfSpawn.y);
                 _handScoreEvents.SubscribeToCatchTheBall(ball);
+                ball.SetState();
                 ball.gameObject.SetActive(true);
             }
 

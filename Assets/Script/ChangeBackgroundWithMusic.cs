@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChangeBackgroundWithMusic : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> _music;
-    [SerializeField] private List<Sprite> _SpritesBackground;
+    [SerializeField] private List<Sprite> _spritesBackground;
     [SerializeField] private Image _background;
     [SerializeField] private AudioSource _audioSourceMusic;
 
@@ -36,6 +36,6 @@ public class ChangeBackgroundWithMusic : MonoBehaviour
 
     private void PutRandomBackground()
     {
-        _background.sprite = _SpritesBackground[Random.Range(0, _SpritesBackground.Count)];
+        _background.sprite = _spritesBackground[Random.Range(0, _spritesBackground.Count)];
     }
 }

@@ -12,6 +12,8 @@ public class Score : MonoBehaviour
     private int _initialScore = 1000;
 
     public event UnityAction NoScore;
+    public event UnityAction<int> AddedScore;
+    public event UnityAction Reset;
     public int ValueScore => _score;
 
     private void Start()
@@ -25,6 +27,7 @@ public class Score : MonoBehaviour
     {
         _score += score;
         UpdateText();
+        AddedScore?.Invoke(_score);
     }
 
     public void RemoveScore(int score)
@@ -41,6 +44,7 @@ public class Score : MonoBehaviour
     {
         _score = _initialScore;
         UpdateText();
+        Reset?.Invoke();
     }
 
     private void UpdateText()

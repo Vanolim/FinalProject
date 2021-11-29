@@ -19,13 +19,19 @@ public class BallCatchHandling : MonoBehaviour
         ball.Caught -= AddScoreForTheBallCaught;
     }
 
-    private void AddScoreForTheBallCaught(Ball caughtBall, int score)
+    private void AddScoreForTheBallCaught(Ball caughtBall)
     {
-        _score.AddScore(score);
-        if (score < 0)
+        int ballScore = caughtBall.Price;
+        if (caughtBall.Price < 0)
+        {
+            _score.RemoveScore(ballScore * -1);
             PlayNegativeSound();
+        }
         else
+        {
+            _score.AddScore(ballScore);
             PlayPositiveSound();
+        }
 
         UnsubscribeToCatchTheBall(caughtBall);
     }

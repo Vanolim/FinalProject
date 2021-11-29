@@ -9,9 +9,10 @@ public class Game : MonoBehaviour
     [SerializeField] private StopPanel _stopPanel;
     [SerializeField] private BallGenerator _ballGenerator;
     [SerializeField] private ChangeBackgroundWithMusic _enviroment;
-    [SerializeField] private int __scoreForMaximumDifficulty;
+    [SerializeField] private BestResult _bestResult;
+    [SerializeField] private int _scoreForMaximumDifficulty;
 
-    private IEnumerator SetTheDifficultyByTheCurrentValueOfScoreJob;
+    private IEnumerator SetTheDifficultyJob;
 
     private void OnEnable()
     {
@@ -26,23 +27,17 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _enviroment.UpdateEnvironment();
-        SetTheDifficultyByTheCurrentValueOfScoreJob = SetTheDifficultyByTheCurrentOfScore();
-        StartCoroutine(SetTheDifficultyByTheCurrentValueOfScoreJob);
-    }
-
-    private void Update()
-    {
-        SetComplexity();
+        SetTheDifficultyJob = SetTheDifficulty();
+        StartCoroutine(SetTheDifficultyJob);
     }
 
     public void Restart()
     {
-        _ballGenerator.Reset();
+        _ballGenerator.ResetActiveBalls();
         _stopPanel.HidePanels();
         _score.ResetScore();
         _enviroment.UpdateEnvironment();
-        StopCoroutine(SetTheDifficultyByTheCurrentValueOfScoreJob);
-        StartCoroutine(SetTheDifficultyByTheCurrentValueOfScoreJob);
+        _bestResult.SaveTheBestResult();
         Time.timeScale = 1;
     }
 
@@ -50,16 +45,19 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         _stopPanel.ShowPausePanel();
+        _stopPanel.ShowTheBestResult(_bestResult.BestScore);
     }
 
     public void QuitTheGame()
     {
+        _bestResult.SaveTheBestResult();
         Application.Quit();
     }
 
     public void Resume()
     {
         Time.timeScale = 1;
+        _bestResult.SaveTheBestResult();
         _stopPanel.HidePanels();
     }
 
@@ -67,21 +65,21 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 0;
         _stopPanel.ShowGameOverPanel();
+        _stopPanel.ShowTheBestResult(_bestResult.BestScore);
     }
 
-    private void SetComplexity()
+    private float GetCurrentPercentageDifficulty()
     {
-        float difficultyValueInPercentage = Mathf.InverseLerp(0, __scoreForMaximumDifficulty, _score.ValueScore);
-        _ballGenerator.SetTimeBetweenSpawn(difficultyValueInPercentage);
+        return Mathf.InverseLerp(0, _scoreForMaximumDifficulty, _score.ValueScore);
     }
 
-    private IEnumerator SetTheDifficultyByTheCurrentOfScore()
+    private IEnumerator SetTheDifficulty()
     {
-        var timeBetweenChange = new WaitForSeconds(0.5f);
+        var timeBetweenChange = new WaitForSeconds(0.1f);
 
         while (true)
         {
-            SetComplexity();
+            _ballGenerator.SetTimeBetweenSpawn(GetCurrentPercentageDifficulty());
             yield return timeBetweenChange;
         }
     }

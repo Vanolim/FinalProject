@@ -13,7 +13,7 @@ public class DeadBallZone : MonoBehaviour
     {
         if (collision.TryGetComponent<Ball>(out Ball ball))
         {
-            if(ball.Price < 0)
+            if(ball.Price > 0)
             {
                 _score.RemoveScore(ball.Price);
                 _audioSourceNegative.Play();
