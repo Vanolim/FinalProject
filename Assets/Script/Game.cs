@@ -9,7 +9,7 @@ public class Game : MonoBehaviour
     [SerializeField] private StopPanel _stopPanel;
     [SerializeField] private BallGenerator _ballGenerator;
     [SerializeField] private ChangeBackgroundWithMusic _enviroment;
-    [SerializeField] private int _valueOfScoreForMaximumDifficulty;
+    [SerializeField] private int __scoreForMaximumDifficulty;
 
     private IEnumerator SetTheDifficultyByTheCurrentValueOfScoreJob;
 
@@ -26,7 +26,7 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _enviroment.UpdateEnvironment();
-        SetTheDifficultyByTheCurrentValueOfScoreJob = SetTheDifficultyByTheCurrentValueOfScore();
+        SetTheDifficultyByTheCurrentValueOfScoreJob = SetTheDifficultyByTheCurrentOfScore();
         StartCoroutine(SetTheDifficultyByTheCurrentValueOfScoreJob);
     }
 
@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
 
     public void Restart()
     {
-        _ballGenerator.ResetGenerator();
+        _ballGenerator.Reset();
         _stopPanel.HidePanels();
         _score.ResetScore();
         _enviroment.UpdateEnvironment();
@@ -71,11 +71,11 @@ public class Game : MonoBehaviour
 
     private void SetComplexity()
     {
-        float difficultyValueInPercentage = Mathf.InverseLerp(0, _valueOfScoreForMaximumDifficulty, _score.ValueScore);
+        float difficultyValueInPercentage = Mathf.InverseLerp(0, __scoreForMaximumDifficulty, _score.ValueScore);
         _ballGenerator.SetTimeBetweenSpawn(difficultyValueInPercentage);
     }
 
-    private IEnumerator SetTheDifficultyByTheCurrentValueOfScore()
+    private IEnumerator SetTheDifficultyByTheCurrentOfScore()
     {
         var timeBetweenChange = new WaitForSeconds(0.5f);
 

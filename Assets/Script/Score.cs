@@ -31,7 +31,7 @@ public class Score : MonoBehaviour
     {
         _score -= score;
         UpdateText();
-        if(_score <= 0)
+        if (_score <= 0)
         {
             NoScore?.Invoke();
         }

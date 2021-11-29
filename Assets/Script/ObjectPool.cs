@@ -8,22 +8,22 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject _container;
     [SerializeField] private int _capacity;
 
-    private List<GameObject> _pool = new List<GameObject>();
+    private List<Ball> _pool = new List<Ball>();
 
-    protected void Initialize(GameObject prefab)
+    protected void Initialize(Ball prefab)
     {
         for (int i = 0; i < _capacity; i++)
         {
-            GameObject spawned = Instantiate(prefab, _container.transform);
+            GameObject spawned = Instantiate(prefab.gameObject, _container.transform);
             spawned.SetActive(false);
 
-            _pool.Add(spawned);
+            _pool.Add(spawned.GetComponent<Ball>());
         }
     }
 
-    protected bool TryGetObject(out GameObject result)
+    protected bool TryGetObject(out Ball result)
     {
-        result = _pool.FirstOrDefault(p => p.activeSelf == false);
+        result = _pool.FirstOrDefault(p => p.gameObject.activeSelf == false);
 
         return result != null;
     }
@@ -34,7 +34,7 @@ public class ObjectPool : MonoBehaviour
 
         foreach (var item in _pool)
         {
-            if (item.activeSelf)
+            if (item.gameObject.activeSelf)
                 activeGameObjects.Add(item.GetComponent<Ball>());
         }
 

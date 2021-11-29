@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BallGenerator : ObjectPool
 {
-    [SerializeField] private GameObject _template;
+    [SerializeField] private Ball _template;
     [SerializeField] private Vector2 _startingPointOfSpawn;
     [SerializeField] private float _minPositionX;
     [SerializeField] private float _maxPositionX;
-    [SerializeField] private CatchingTheBall _handScoreEvents;
+    [SerializeField] private BallCatchHandling _handScoreEvents;
     [SerializeField] private float _minimumSpawnTime;
     [SerializeField] private float _maximumSpawnTime;
 
@@ -20,13 +20,13 @@ public class BallGenerator : ObjectPool
         StartCoroutine(SpawnObjects());
     }
 
-    public void ResetGenerator()
+    public void Reset()
     {
-        List<Ball> activeGameObject = ReturnActiveObjectsPool();
+        List<Ball> activeGameObjects = ReturnActiveObjectsPool();
 
-        foreach (var item in activeGameObject)
+        foreach (var item in activeGameObjects)
         {
-            _handScoreEvents.UnsubscribeToTheBallButtonEvent(item);
+            _handScoreEvents.UnsubscribeToCatchTheBall(item);
             item.gameObject.SetActive(false);
         }
     }
@@ -37,7 +37,7 @@ public class BallGenerator : ObjectPool
         _timeBetweenSpawn = Mathf.Lerp(_minimumSpawnTime, _maximumSpawnTime, inversePercentage);
     }
 
-    private float SetTheSpawnPointToRandomPositionX()
+    private float SetThePositionX()
     {
         return Random.Range(_startingPointOfSpawn.x + _minPositionX, _startingPointOfSpawn.x + _maxPositionX);
     }
@@ -46,11 +46,11 @@ public class BallGenerator : ObjectPool
     {
         while (true)
         {
-            if(TryGetObject(out GameObject ball))
+            if(TryGetObject(out Ball ball))
             {
-                ball.transform.position = new Vector2(SetTheSpawnPointToRandomPositionX(), _startingPointOfSpawn.y);
-                _handScoreEvents.SubscribeToTheBallCaughtEvent(ball.GetComponent<Ball>());
-                ball.SetActive(true);
+                ball.transform.position = new Vector2(SetThePositionX(), _startingPointOfSpawn.y);
+                _handScoreEvents.SubscribeToCatchTheBall(ball);
+                ball.gameObject.SetActive(true);
             }
 
             yield return new WaitForSeconds(_timeBetweenSpawn);

@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class ChangeBackgroundWithMusic : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> _music;
     [SerializeField] private List<Sprite> _SpritesBackground;
     [SerializeField] private Image _background;
-
-    private AudioSource _audioSource;
-
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource _audioSourceMusic;
 
     public void UpdateEnvironment()
     {
@@ -27,18 +20,18 @@ public class ChangeBackgroundWithMusic : MonoBehaviour
     {
         if(value == true)
         {
-            _audioSource.mute = false;
+            _audioSourceMusic.mute = false;
         }
         else
         {
-            _audioSource.mute = true;
+            _audioSourceMusic.mute = true;
         }
     }
 
     private void TurnOnRandomMusic()
     {
-        _audioSource.clip = _music[Random.Range(0, _music.Count)];
-        _audioSource.Play();
+        _audioSourceMusic.clip = _music[Random.Range(0, _music.Count)];
+        _audioSourceMusic.Play();
     }
 
     private void PutRandomBackground()
