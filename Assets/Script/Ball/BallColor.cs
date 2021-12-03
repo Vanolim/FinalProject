@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class BallColor : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _padding;
+    [SerializeField] private TMP_Text _displayPrice;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -18,18 +20,13 @@ public class BallColor : MonoBehaviour
 
     public void SetColor()
     {
-
-        Color newColor = new Color(SetValueForChannel(),
-           SetValueForChannel(), SetValueForChannel());
+        Color newColor = new Color(SetValueForChannel(), SetValueForChannel(), SetValueForChannel());
         _spriteRenderer.color = newColor;
         SetOppositeColorForPadding(newColor);
+        _displayPrice.color = _padding.color;
     }
 
-    private float SetValueForChannel()
-    {
-        float maximumValueOfTheColorRange = 1;
-        return Random.Range(0, maximumValueOfTheColorRange);
-    }
+    private float SetValueForChannel() => Random.Range(0f, 1f);
 
     private void SetOppositeColorForPadding(Color colorBall)
     {
@@ -52,10 +49,6 @@ public class BallColor : MonoBehaviour
     private bool CheckThatNewColorOutOfBounds(float value)
     {
         float bound = 1f;
-
-        if (value >= bound)
-            return true;
-        else 
-            return false;
+        return value >= bound;
     }
 }

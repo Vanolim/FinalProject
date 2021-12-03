@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 8477592104406736305}
   - component: {fileID: 6169453189660431019}
   - component: {fileID: 7509940421870220300}
+  - component: {fileID: 638280391121704400}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -512,11 +513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f30828e80d12244885c6f894e0d8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSpeedMovement: 2
-  _maxSpeedMovement: 6
   _minPrice: 100
   _maxPrice: 900
-  _displayPrice: {fileID: 3953635355240330725}
+  _ballCanvas: {fileID: 5772819284355509285}
 --- !u!114 &7509940421870220300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +529,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _padding: {fileID: 975021749033013713}
+  _displayPrice: {fileID: 3953635355240330725}
+--- !u!114 &638280391121704400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696003848480886177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47683d4e5685e7248ac2142922cd947d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minSpeedMovement: 2
+  _maxSpeedMovement: 6
 --- !u!1 &7809534968695898585
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,3 +658,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65da2ca2b9b62646b71e5d17ec54d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _displayPrice: {fileID: 3953635355240330725}

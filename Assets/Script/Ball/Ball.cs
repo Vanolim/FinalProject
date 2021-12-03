@@ -5,18 +5,18 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(BallColor))]
+[RequireComponent(typeof(BallMovement))]
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float _minSpeedMovement;
-    [SerializeField] private float _maxSpeedMovement;
     [SerializeField] private int _minPrice;
     [SerializeField] private int _maxPrice;
-    [SerializeField] private TMP_Text _displayPrice;
+    [SerializeField] private BallCanvas _ballCanvas;
+
+    private BallColor _ballColor;
+    private BallMovement _ballMovement;
 
     private int _price;
-    private float _speedMovement;
     private bool _isPositiveBall;
-    private BallColor _ballColor;
 
     public event UnityAction<Ball> Caught;
     public int Price => _price;
@@ -24,20 +24,15 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         _ballColor = GetComponent<BallColor>();
+        _ballMovement = GetComponent<BallMovement>();
     }
 
-    public void SetState()
+    public void UpdateState()
     {
-        SetUpPositivity();
+        _isPositiveBall = SetUpPositivity();
         SetPrice();
-        SetSpeedRelativeToPrice();
+        _ballMovement.SetSpeedMovement(GetInterpolatedPriceValue());
         _ballColor.SetColor();
-        _displayPrice.color = _ballColor.Padding;
-    }
-
-    private void Update()
-    {
-        MoveDown();
     }
 
     public void ClickHandling()
@@ -46,14 +41,10 @@ public class Ball : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void SetUpPositivity()
+    private bool SetUpPositivity()
     {
         int chanceBallPositive = 70;
-
-        if (Random.Range(0, 100) <= chanceBallPositive)
-            _isPositiveBall = true;
-        else
-            _isPositiveBall = false;
+        return Random.Range(0, 100) <= chanceBallPositive;
     }
 
     private void SetPrice()
@@ -62,28 +53,8 @@ public class Ball : MonoBehaviour
         if (_isPositiveBall == false)
             _price *= -1;
 
-        SetPriceText();
+        _ballCanvas.SetPriveText(_price);
     }
 
-    private void SetPriceText()
-    {
-        _displayPrice.text = _price.ToString();
-    }
-
-    private void SetSpeedRelativeToPrice()
-    {
-        int moduloPrice;
-        if (_price < 0)
-            moduloPrice = _price * -1;
-        else
-            moduloPrice = _price;
-
-        float interpolationValue = Mathf.InverseLerp(_minPrice, _maxPrice, moduloPrice);
-        _speedMovement = Mathf.Lerp(_minSpeedMovement, _maxSpeedMovement, interpolationValue);
-    }
-
-    private void MoveDown()
-    {
-        transform.Translate(Vector2.down * _speedMovement * Time.deltaTime);
-    }
+    private float GetInterpolatedPriceValue() => Mathf.InverseLerp(_minPrice, _maxPrice, Mathf.Abs(_price));
 }

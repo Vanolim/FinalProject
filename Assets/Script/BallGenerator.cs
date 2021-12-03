@@ -50,7 +50,7 @@ public class BallGenerator : ObjectPool
             {
                 ball.transform.position = new Vector2(SetThePositionX(), _startingPointOfSpawn.y);
                 _handScoreEvents.SubscribeToCatchTheBall(ball);
-                ball.SetState();
+                ball.UpdateState();
                 ball.gameObject.SetActive(true);
             }
 
