@@ -6,16 +6,36 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class BestResultDispalay : MonoBehaviour
 {
+    [SerializeField] private Score _score;
+    [SerializeField] private BestResult _bestResult;
+
     [SerializeField] private Animator _rotateStar;
     [SerializeField] private TMP_Text _bestScore;
     [SerializeField] private Transform _startSprite;
 
-    public void SetTheCurrentBestScore(int value)
+    private void OnEnable()
+    {
+        _score.Reset += StopAnimation;
+        _bestResult.NewBestResultAchieved += SetTheNewBestScore;
+    }
+
+    private void OnDisable()
+    {
+        _score.Reset -= StopAnimation;
+        _bestResult.NewBestResultAchieved -= SetTheNewBestScore;
+    }
+
+    private void Start()
+    {
+        SetTheCurrentBestScore(_bestResult.BestScore);
+    }
+
+    private void SetTheCurrentBestScore(int value)
     {
         UpdateText(value);
     }
 
-    public void SetTheNewBestScore(int newBestResult)
+    private void SetTheNewBestScore(int newBestResult)
     {
         UpdateText(newBestResult);
 
@@ -23,7 +43,7 @@ public class BestResultDispalay : MonoBehaviour
             _rotateStar.enabled = true;
     }
 
-    public void StopAnimation()
+    private void StopAnimation()
     {
         if (_rotateStar.enabled)
             _rotateStar.enabled = false;

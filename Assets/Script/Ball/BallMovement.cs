@@ -14,7 +14,7 @@ public class BallMovement : MonoBehaviour
         MoveDown();
     }
 
-    public void SetSpeedMovement(float interpolationPriceValue)
+    public void ResetSpeedMovement(float interpolationPriceValue)
     {
         _speedMovement = Mathf.Lerp(_minSpeedMovement, _maxSpeedMovement, interpolationPriceValue);
     }

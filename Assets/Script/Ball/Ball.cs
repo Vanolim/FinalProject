@@ -12,49 +12,54 @@ public class Ball : MonoBehaviour
     [SerializeField] private int _maxPrice;
     [SerializeField] private BallCanvas _ballCanvas;
 
-    private BallColor _ballColor;
-    private BallMovement _ballMovement;
+    private BallColor _color;
+    private BallMovement _movement;
 
     private int _price;
-    private bool _isPositiveBall;
+    private bool _isPositive;
 
     public event UnityAction<Ball> Caught;
     public int Price => _price;
 
     private void Awake()
     {
-        _ballColor = GetComponent<BallColor>();
-        _ballMovement = GetComponent<BallMovement>();
+        _color = GetComponent<BallColor>();
+        _movement = GetComponent<BallMovement>();
     }
 
-    public void UpdateState()
+    public void Init()
     {
-        _isPositiveBall = SetUpPositivity();
-        SetPrice();
-        _ballMovement.SetSpeedMovement(GetInterpolatedPriceValue());
-        _ballColor.SetColor();
+        _isPositive = GetUpPositivity();
+        EstablishPrice();
+        _movement.ResetSpeedMovement(GetInterpolatedPriceValue());
+        _color.ResetColor();
     }
 
     public void ClickHandling()
     {
-        Caught?.Invoke(this);
-        gameObject.SetActive(false);
+        if (CheckThatTheGameIsNotStopped())
+        {
+            Caught?.Invoke(this);
+            gameObject.SetActive(false);
+        }
     }
 
-    private bool SetUpPositivity()
+    private bool GetUpPositivity()
     {
         int chanceBallPositive = 70;
         return Random.Range(0, 100) <= chanceBallPositive;
     }
 
-    private void SetPrice()
+    private void EstablishPrice()
     {
         _price = Random.Range(_minPrice, _maxPrice);
-        if (_isPositiveBall == false)
+        if (_isPositive == false)
             _price *= -1;
 
-        _ballCanvas.SetPriveText(_price);
+        _ballCanvas.ResetPriceText(_price);
     }
 
     private float GetInterpolatedPriceValue() => Mathf.InverseLerp(_minPrice, _maxPrice, Mathf.Abs(_price));
+
+    private bool CheckThatTheGameIsNotStopped() => Time.timeScale == 1;
 }

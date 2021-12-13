@@ -79,7 +79,7 @@ public class Game : MonoBehaviour
 
         while (true)
         {
-            _ballGenerator.SetTimeBetweenSpawn(GetCurrentPercentageDifficulty());
+            _ballGenerator.ChangeTimeBetweenSpawn(GetCurrentPercentageDifficulty());
             yield return timeBetweenChange;
         }
     }

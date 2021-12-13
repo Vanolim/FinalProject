@@ -1,36 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BestResultDispalay))]
 public class BestResult : MonoBehaviour
 {
     [SerializeField] private Score _score;
 
-    private BestResultDispalay _bestResultDisplay;
     private string _keyBestResult = "bestResult";
     private int _bestScore;
     private bool _bestScoreUpdate = false;
 
     public int BestScore => _bestScore;
+    public event UnityAction<int> NewBestResultAchieved;
 
     private void OnEnable()
     {
         _score.AddedScore += CheckTheImprovementOfTheBestScore;
-        _score.Reset += ResetBestResultDisplay;
     }
 
     private void OnDisable()
     {
         _score.AddedScore -= CheckTheImprovementOfTheBestScore;
-        _score.Reset -= ResetBestResultDisplay;
     }
 
     private void Awake()
     {
         _bestScore = PlayerPrefs.GetInt(_keyBestResult);
-        _bestResultDisplay = GetComponent<BestResultDispalay>();
-        _bestResultDisplay.SetTheCurrentBestScore(_bestScore);
     }
 
     public void SaveTheBestResult()
@@ -50,12 +47,7 @@ public class BestResult : MonoBehaviour
         {
             _bestScoreUpdate = true;
             _bestScore = currentScore;
-            _bestResultDisplay.SetTheNewBestScore(_bestScore);
+            NewBestResultAchieved?.Invoke(_bestScore);
         }
-    }
-
-    private void ResetBestResultDisplay()
-    {
-        _bestResultDisplay.StopAnimation();
     }
 }

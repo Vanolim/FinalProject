@@ -18,17 +18,18 @@ public class BallColor : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetColor()
+    public void ResetColor()
     {
-        Color newColor = new Color(SetValueForChannel(), SetValueForChannel(), SetValueForChannel());
+        Color newColor = new Color(GetRandomValueForChannel(), GetRandomValueForChannel(), GetRandomValueForChannel());
         _spriteRenderer.color = newColor;
-        SetOppositeColorForPadding(newColor);
+        DefineOppositeColorForPadding(newColor);
+        _padding.color = DefineOppositeColorForPadding(newColor);
         _displayPrice.color = _padding.color;
     }
 
-    private float SetValueForChannel() => Random.Range(0f, 1f);
+    private float GetRandomValueForChannel() => Random.Range(0f, 1f);
 
-    private void SetOppositeColorForPadding(Color colorBall)
+    private Color DefineOppositeColorForPadding(Color colorBall)
     {
         float additionalValue = 0.5f;
         float maxValue = 1f;
@@ -42,8 +43,7 @@ public class BallColor : MonoBehaviour
                 colorValues[i] = colorValues[i] + additionalValue;
         }
 
-        Color colorPadding = new Color(colorValues[0], colorValues[1], colorValues[2]);
-        _padding.color = colorPadding;
+        return new Color(colorValues[0], colorValues[1], colorValues[2]);
     }
 
     private bool CheckThatNewColorOutOfBounds(float value)

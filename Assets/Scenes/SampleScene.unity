@@ -2328,6 +2328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c361768f2ce8c4bb414c68f9fc011d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: {fileID: 591398846}
+  _bestResult: {fileID: 847282017}
   _rotateStar: {fileID: 712182839}
   _bestScore: {fileID: 824000401}
   _startSprite: {fileID: 712182838}

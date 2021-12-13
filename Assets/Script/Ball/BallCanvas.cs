@@ -10,7 +10,7 @@ public class BallCanvas : MonoBehaviour
 
     private Canvas _canvans;
 
-    public void SetPriveText(int price)
+    public void ResetPriceText(int price)
     {
         _displayPrice.text = price.ToString();
     }
