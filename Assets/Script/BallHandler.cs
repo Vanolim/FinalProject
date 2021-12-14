@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BallCatchHandling : MonoBehaviour
+public class BallHandler : MonoBehaviour
 {
     [SerializeField] private Score _score;
     [SerializeField] private AudioSource _audioSourcePositive;
@@ -24,12 +24,12 @@ public class BallCatchHandling : MonoBehaviour
         int ballScore = caughtBall.Price;
         if (caughtBall.Price < 0)
         {
-            _score.RemoveScore(ballScore * -1);
+            _score.Decrease(ballScore * -1);
             PlayNegativeSound();
         }
         else
         {
-            _score.AddScore(ballScore);
+            _score.Increase(ballScore);
             PlayPositiveSound();
         }
 

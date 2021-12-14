@@ -22,7 +22,6 @@ public class BallColor : MonoBehaviour
     {
         Color newColor = new Color(GetRandomValueForChannel(), GetRandomValueForChannel(), GetRandomValueForChannel());
         _spriteRenderer.color = newColor;
-        DefineOppositeColorForPadding(newColor);
         _padding.color = DefineOppositeColorForPadding(newColor);
         _displayPrice.color = _padding.color;
     }
@@ -37,18 +36,12 @@ public class BallColor : MonoBehaviour
 
         for (int i = 0; i < colorValues.Length; i++)
         {
-            if (CheckThatNewColorOutOfBounds(colorValues[i] + additionalValue))
+            if (colorValues[i] + additionalValue >= 1f)
                 colorValues[i] = 0 + (maxValue - colorValues[i]);
             else
                 colorValues[i] = colorValues[i] + additionalValue;
         }
 
         return new Color(colorValues[0], colorValues[1], colorValues[2]);
-    }
-
-    private bool CheckThatNewColorOutOfBounds(float value)
-    {
-        float bound = 1f;
-        return value >= bound;
     }
 }

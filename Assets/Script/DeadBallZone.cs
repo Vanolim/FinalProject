@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class DeadBallZone : MonoBehaviour
 {
-    [SerializeField] private BallCatchHandling _ballCatchHandling;
+    [SerializeField] private BallHandler _ballCatchHandling;
     [SerializeField] private Score _score;
     [SerializeField] private AudioSource _audioSourceNegative;
 
@@ -15,7 +15,7 @@ public class DeadBallZone : MonoBehaviour
         {
             if(ball.Price > 0)
             {
-                _score.RemoveScore(ball.Price);
+                _score.Decrease(ball.Price);
                 _audioSourceNegative.Play();
             }
             _ballCatchHandling.UnsubscribeToCatchTheBall(ball);

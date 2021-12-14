@@ -23,16 +23,16 @@ public class Score : MonoBehaviour
         UpdateText();
     }
 
-    public void AddScore(int score)
+    public void Increase(int value)
     {
-        _score += score;
+        _score += value;
         UpdateText();
         AddedScore?.Invoke(_score);
     }
 
-    public void RemoveScore(int score)
+    public void Decrease(int value)
     {
-        _score -= score;
+        _score -= value;
         UpdateText();
         if (_score <= 0)
         {

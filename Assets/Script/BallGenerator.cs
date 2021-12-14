@@ -8,7 +8,7 @@ public class BallGenerator : ObjectPool
     [SerializeField] private Vector2 _startingPointOfSpawn;
     [SerializeField] private float _minPositionX;
     [SerializeField] private float _maxPositionX;
-    [SerializeField] private BallCatchHandling _handScoreEvents;
+    [SerializeField] private BallHandler _handScoreEvents;
     [SerializeField] private float _minimumSpawnTime;
     [SerializeField] private float _maximumSpawnTime;
 

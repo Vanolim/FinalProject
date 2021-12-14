@@ -31,13 +31,13 @@ public class Ball : MonoBehaviour
     {
         _isPositive = GetUpPositivity();
         EstablishPrice();
-        _movement.ResetSpeedMovement(GetInterpolatedPriceValue());
+        _movement.SetSpeed(GetInterpolatedPriceValue());
         _color.ResetColor();
     }
 
     public void ClickHandling()
     {
-        if (CheckThatTheGameIsNotStopped())
+        if (Time.timeScale == 1)
         {
             Caught?.Invoke(this);
             gameObject.SetActive(false);
@@ -60,6 +60,4 @@ public class Ball : MonoBehaviour
     }
 
     private float GetInterpolatedPriceValue() => Mathf.InverseLerp(_minPrice, _maxPrice, Mathf.Abs(_price));
-
-    private bool CheckThatTheGameIsNotStopped() => Time.timeScale == 1;
 }

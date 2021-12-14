@@ -27,12 +27,7 @@ public class BestResultDispalay : MonoBehaviour
 
     private void Start()
     {
-        SetTheCurrentBestScore(_bestResult.BestScore);
-    }
-
-    private void SetTheCurrentBestScore(int value)
-    {
-        UpdateText(value);
+        UpdateText(_bestResult.BestScore);
     }
 
     private void SetTheNewBestScore(int newBestResult)
