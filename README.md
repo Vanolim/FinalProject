@@ -1,4 +1,4 @@
-# Finel Project (Funny Bubbles)
+# Final Project (Funny Bubbles)
 _______________________________
 Выпускной проект школы IJunior
 
