@@ -35,7 +35,7 @@ public class Ball : MonoBehaviour
         _color.ResetColor();
     }
 
-    public void ClickHandling()
+    public void GetCaught()
     {
         if (Time.timeScale == 1)
         {

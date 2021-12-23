@@ -8,7 +8,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Score _score;
     [SerializeField] private StopPanel _stopPanel;
     [SerializeField] private BallGenerator _ballGenerator;
-    [SerializeField] private ChangeBackgroundWithMusic _enviroment;
+    [SerializeField] private Background _enviroment;
     [SerializeField] private BestResult _bestResult;
     [SerializeField] private int _scoreForMaximumDifficulty;
 

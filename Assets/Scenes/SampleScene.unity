@@ -2001,7 +2001,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5e006ee1389354e478c25e4513348a53, type: 3}
   - {fileID: 21300000, guid: 83dfc39b9b30e27409da3302c8eaf1b7, type: 3}
   - {fileID: 21300000, guid: 39fdc35943b9f0b4b9bff4d4a68ab2e5, type: 3}
-  _background: {fileID: 571851216}
+  _fon: {fileID: 571851216}
   _audioSourceMusic: {fileID: 106912942}
 --- !u!4 &789259280
 Transform:

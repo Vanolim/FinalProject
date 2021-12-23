@@ -3,29 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChangeBackgroundWithMusic : MonoBehaviour
+public class Background : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> _music;
     [SerializeField] private List<Sprite> _spritesBackground;
-    [SerializeField] private Image _background;
+    [SerializeField] private Image _fon;
     [SerializeField] private AudioSource _audioSourceMusic;
 
     public void UpdateEnvironment()
     {
         TurnOnRandomMusic();
-        PutRandomBackground();
+        PutRandomFon();
     }
 
-    public void SwitchMusic(bool value)
+    public void MuteMusic(bool value)
     {
-        if(value == true)
-        {
-            _audioSourceMusic.mute = false;
-        }
-        else
-        {
-            _audioSourceMusic.mute = true;
-        }
+        _audioSourceMusic.mute = !value;
     }
 
     private void TurnOnRandomMusic()
@@ -34,8 +27,8 @@ public class ChangeBackgroundWithMusic : MonoBehaviour
         _audioSourceMusic.Play();
     }
 
-    private void PutRandomBackground()
+    private void PutRandomFon()
     {
-        _background.sprite = _spritesBackground[Random.Range(0, _spritesBackground.Count)];
+        _fon.sprite = _spritesBackground[Random.Range(0, _spritesBackground.Count)];
     }
 }

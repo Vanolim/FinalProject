@@ -308,7 +308,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6169453189660431019}
         m_TargetAssemblyTypeName: Ball, Assembly-CSharp
-        m_MethodName: ClickHandling
+        m_MethodName: GetCaught
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

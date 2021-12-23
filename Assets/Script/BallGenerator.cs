@@ -22,7 +22,7 @@ public class BallGenerator : ObjectPool
 
     public void ResetActiveBalls()
     {
-        List<Ball> activeGameObjects = ReturnActiveObjectsPool();
+        List<Ball> activeGameObjects = ActiveObjects();
 
         foreach (var item in activeGameObjects)
         {
@@ -37,7 +37,7 @@ public class BallGenerator : ObjectPool
         _timeBetweenSpawn = Mathf.Lerp(_minimumSpawnTime, _maximumSpawnTime, inversePercentage);
     }
 
-    private float GetThePositionX()
+    private float GetPositionX()
     {
         return Random.Range(_startingPointOfSpawn.x + _minPositionX, _startingPointOfSpawn.x + _maxPositionX);
     }
@@ -48,7 +48,7 @@ public class BallGenerator : ObjectPool
         {
             if(TryGetObject(out Ball ball))
             {
-                ball.transform.position = new Vector2(GetThePositionX(), _startingPointOfSpawn.y);
+                ball.transform.position = new Vector2(GetPositionX(), _startingPointOfSpawn.y);
                 _handScoreEvents.SubscribeToCatchTheBall(ball);
                 ball.Init();
                 ball.gameObject.SetActive(true);

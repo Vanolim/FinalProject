@@ -28,16 +28,8 @@ public class ObjectPool : MonoBehaviour
         return result != null;
     }
 
-    protected List<Ball> ReturnActiveObjectsPool()
+    protected List<Ball> ActiveObjects()
     {
-        List<Ball> activeGameObjects = new List<Ball>();
-
-        foreach (var item in _pool)
-        {
-            if (item.gameObject.activeSelf)
-                activeGameObjects.Add(item.GetComponent<Ball>());
-        }
-
-        return activeGameObjects;
+        return _pool.Where(t => t.gameObject.activeSelf).ToList();
     }
 }
