@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +9,7 @@ public class BallColor : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    public Color Padding => _padding.color;
+    public Color ValueColor => _spriteRenderer.color;
 
     private void Awake()
     {
@@ -39,7 +37,7 @@ public class BallColor : MonoBehaviour
             if (colorValues[i] + additionalValue >= 1f)
                 colorValues[i] = 0 + (maxValue - colorValues[i]);
             else
-                colorValues[i] = colorValues[i] + additionalValue;
+                colorValues[i] += additionalValue;
         }
 
         return new Color(colorValues[0], colorValues[1], colorValues[2]);
