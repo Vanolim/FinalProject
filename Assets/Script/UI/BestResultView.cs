@@ -31,6 +31,6 @@ public class BestResultView : MonoBehaviour
 
     private void UpdateText(int score)
     {
-        _bestScore.text = score.ToString();
+        _bestScore.text = "best result: " + score.ToString();
     }
 }

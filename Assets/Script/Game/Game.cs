@@ -5,6 +5,7 @@ public class Game : MonoBehaviour
     [SerializeField] private ScoreHandler _scoreHandler;
     [SerializeField] private MenuButtonHandler _menuButtonHandler;
     [SerializeField] private GameState _gameState;
+    [SerializeField] private TimeState _timeState;
 
     private void OnEnable()
     {
@@ -27,13 +28,13 @@ public class Game : MonoBehaviour
     private void Restart()
     {
         _gameState.Restart();
-        Time.timeScale = 1;
+        _timeState.Resume();
     }
 
     private void Pause()
     {
         _gameState.Pause();
-        Time.timeScale = 0;
+        _timeState.Stop();
     }
 
     private void QuitTheGame()
@@ -45,13 +46,13 @@ public class Game : MonoBehaviour
     private void Resume()
     {
         _gameState.Resume();
-        Time.timeScale = 1;
+        _timeState.Resume();
     }
 
     private void ToLose()
     {
         _gameState.GameOver();
-        Time.timeScale = 0;
+        _timeState.Stop();
     }
     
     private void LossCheck(int currentScore)
